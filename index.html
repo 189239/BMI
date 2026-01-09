@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>叮叮当的BMI计算器</title>
+    <style>
+        /* 简单的小说风格样式，可根据喜好修改 */
+        body {
+            background-color: #f9f6f0; /* 仿纸张背景 */
+            font-family: "SimSun", "宋体", serif; /* 仿印刷字体 */
+            text-align: center;
+            margin-top: 80px;
+            padding: 0 20px;
+        }
+        .calculator {
+            background-color: #fff;
+            border: 1px solid #d8c8b0;
+            padding: 30px;
+            border-radius: 8px;
+            width: 350px;
+            margin: 0 auto;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #8b4513; /* 咖啡色，仿书皮文字 */
+            font-size: 24px;
+        }
+        .input-box {
+            margin: 15px 0;
+            text-align: left;
+            font-size: 16px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #d8c8b0;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #8b4513;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #a0522d;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>📖 叮叮当的BMI计算器</h1>
+        <div class="input-box">
+            体重（kg）：<input type="number" id="weight" step="0.1" placeholder="请输入你的体重，如55.5">
+        </div>
+        <div class="input-box">
+            身高（m）：<input type="number" id="height" step="0.01" placeholder="请输入你的身高，如1.65">
+        </div>
+        <button onclick="calculateBMI()">计算BMI</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            // 获取输入的体重和身高
+            let weight = parseFloat(document.getElementById('weight').value);
+            let height = parseFloat(document.getElementById('height').value);
+            let resultDiv = document.getElementById('result');
+
+            // 验证输入是否有效
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                resultDiv.innerHTML = "❌ 请输入有效的正数（体重>0，身高>0）！";
+                return;
+            }
+
+            // 计算BMI值
+            let bmi = weight / (height * height);
+            let status;
+            // 判断身体状态
+            if (bmi < 18.5) {
+                status = "偏瘦（少侠还需多补充营养～）";
+            } else if (bmi < 25) {
+                status = "正常（身材保持得很不错哦～）";
+            } else if (bmi < 30) {
+                status = "偏胖（可以适当运动啦～）";
+            } else {
+                status = "肥胖（建议规律饮食+运动哦～）";
+            }
+
+            // 显示计算结果
+            resultDiv.innerHTML = `✅ 你的BMI值为：${bmi.toFixed(2)}<br>身体状态：${status}`;
+        }
+    </script>
+</body>
+</html>
